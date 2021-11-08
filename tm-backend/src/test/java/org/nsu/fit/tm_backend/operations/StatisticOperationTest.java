@@ -14,8 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class StatisticOperationTest {
     // Лабораторная 2: покрыть юнит тестами класс StatisticOperation на 100%.
@@ -101,6 +100,9 @@ public class StatisticOperationTest {
 
         StatisticOperation operation = new StatisticOperation(customerManager, subscriptionManager, customerIds);
         StatisticOperation.StatisticOperationResult result = operation.Execute();
+
+        verify(customerManager, times(2)).getCustomer(ArgumentMatchers.any(UUID.class));
+        verify(subscriptionManager, times(2)).getSubscriptions(ArgumentMatchers.any(UUID.class));
 
         assertEquals(balanceSum, result.overallBalance);
         assertEquals(feeSum, result.overallFee);
