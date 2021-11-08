@@ -45,6 +45,34 @@ public class CustomerManager extends ParentManager {
         // Лабораторная 2: добавить код который бы проверял, что нет customer'а c таким же login (email'ом).
         // Попробовать добавить другие ограничения, посмотреть как быстро растет кодовая база тестов.
 
+        if (customer.login == null) {
+            throw new IllegalArgumentException("Field 'customer.login' is null.");
+        }
+
+        if (lookupCustomer(customer.login) != null) {
+            throw new IllegalArgumentException("Customer with this login already exist.");
+        }
+
+        if (!customer.login.matches(".*@\\w*\\.\\w*")) {
+            throw new IllegalArgumentException("Customer's login should be an email address.");
+        }
+
+        if (customer.firstName == null) {
+            throw new IllegalArgumentException("Field 'customer.firstName' is null.");
+        }
+
+        if (customer.firstName.length() < 2 || customer.firstName.length() > 12) {
+            throw new IllegalArgumentException("FirstName's length should be more or equal 2 symbols and less or equal 12 symbols.");
+        }
+
+        if (!customer.firstName.matches("^[A-Z][a-z]*$")) {
+            throw new IllegalArgumentException("FirstName should start with uppercase letter and other than that contain only lowercase letters.");
+        }
+
+        if (customer.balance != 0) {
+            throw new IllegalArgumentException("Balance should be 0.");
+        }
+
         return dbService.createCustomer(customer);
     }
 
@@ -86,10 +114,14 @@ public class CustomerManager extends ParentManager {
     }
 
     /**
-     * Метод добавляет к текущему баласу переданное значение, которое должно быть строго больше нуля.
+     * Метод добавляет к текущему балансу переданное значение, которое должно быть строго больше нуля.
      */
     public CustomerPojo topUpBalance(TopUpBalancePojo topUpBalancePojo) {
         CustomerPojo customerPojo = dbService.getCustomer(topUpBalancePojo.customerId);
+
+        if (topUpBalancePojo.money <= 0) {
+            throw new IllegalArgumentException("Field 'topUpBalancePojo.money' must be > 0.");
+        }
 
         customerPojo.balance += topUpBalancePojo.money;
 
