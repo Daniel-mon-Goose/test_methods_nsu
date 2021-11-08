@@ -383,6 +383,21 @@ class CustomerManagerTest {
     }
 
     @Test
+    void testMeUserType() {
+        AuthenticatedUserDetails user = new AuthenticatedUserDetails(UUID.randomUUID().toString(), "john_wick@example.com", Collections.singleton(Authority.CUSTOMER_ROLE));
+
+        createCustomerInput = new CustomerPojo();
+        createCustomerInput.firstName = "John";
+        createCustomerInput.lastName = "Wick";
+        createCustomerInput.login = "john_wick@example.com";
+        createCustomerInput.pass = "Baba_Jaga";
+        createCustomerInput.balance = 0;
+
+        when(dbService.getCustomerByLogin("john_wick@example.com")).thenReturn(createCustomerInput);
+        assertEquals(ContactPojo.class, customerManager.me(user).getClass());
+    }
+
+    @Test
     void testDeleteCustomer() {
         UUID id = UUID.randomUUID();
         doNothing().when(dbService).deleteCustomer(id);
