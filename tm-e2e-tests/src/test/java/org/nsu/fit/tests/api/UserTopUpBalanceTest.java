@@ -5,17 +5,16 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.nsu.fit.services.rest.RestClient;
 import org.nsu.fit.services.rest.data.AccountTokenPojo;
-import org.nsu.fit.services.rest.data.CustomerPojo;
 import org.testng.annotations.Test;
 
 public class UserTopUpBalanceTest {
-    private AccountTokenPojo adminToken;
 
     @Test(description = "Update balance as user.")
-    @Severity(SeverityLevel.BLOCKER)
-    @Feature("Authentication feature.")
+    @Severity(SeverityLevel.NORMAL)
+    @Feature("Balance feature.")
     public void topUpBalanceTest() {
+        AccountTokenPojo userToken = new RestClient().authenticate("user@us.er", "defaultpass");
+        new RestClient().updateUserBalance(userToken);
 
-        adminToken = new RestClient().authenticate("admin", "setup");
     }
 }

@@ -3,10 +3,7 @@ package org.nsu.fit.services.rest;
 import com.mifmif.common.regex.Generex;
 import org.glassfish.jersey.client.ClientConfig;
 import org.nsu.fit.services.log.Logger;
-import org.nsu.fit.services.rest.data.AccountTokenPojo;
-import org.nsu.fit.services.rest.data.ContactPojo;
-import org.nsu.fit.services.rest.data.CredentialsPojo;
-import org.nsu.fit.services.rest.data.CustomerPojo;
+import org.nsu.fit.services.rest.data.*;
 import org.nsu.fit.shared.JsonMapper;
 
 import javax.ws.rs.client.Client;
@@ -17,6 +14,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.List;
+import java.util.Vector;
 
 public class RestClient {
     // Note: change url if you want to use the docker compose.
@@ -48,6 +47,20 @@ public class RestClient {
         contactPojo.pass = "strongpass";
 
         return post("customers", JsonMapper.toJson(contactPojo, true), CustomerPojo.class, accountToken);
+    }
+
+    public TopUpBalancePojo updateUserBalance(AccountTokenPojo accountToken) {
+        TopUpBalancePojo topUpBalancePojo = new TopUpBalancePojo();
+        topUpBalancePojo.customerId = accountToken.id;
+        topUpBalancePojo.money = 50;
+
+        return post( "/customers/top_up_balance", JsonMapper.toJson(topUpBalancePojo, true), TopUpBalancePojo.class, accountToken);
+    }
+
+    public List<PlanPojo> getAvailablePlans(AccountTokenPojo accountToken) {
+        List<PlanPojo> plans = new Vector<>();
+        
+        return get("/available_plans", JsonMapper.toJson(plans, true), List.class, accountToken);
     }
 
     private static <R> R post(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
