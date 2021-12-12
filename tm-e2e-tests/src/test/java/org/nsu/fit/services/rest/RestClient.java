@@ -15,6 +15,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.Vector;
 
 public class RestClient {
@@ -63,6 +64,40 @@ public class RestClient {
         return get("/available_plans", JsonMapper.toJson(plans, true), List.class, accountToken);
     }
 
+    public List<PlanPojo> getPlans(AccountTokenPojo accountToken) {
+        List<PlanPojo> plans = new Vector<>();
+
+        return get("/plans", JsonMapper.toJson(plans, true), List.class, accountToken);
+    }
+
+    public List<SubscriptionPojo> getSubscriptions(AccountTokenPojo accountToken) {
+        List<SubscriptionPojo> plans = new Vector<>();
+
+        return get("/subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+    }
+
+    public List<CustomerPojo> getUsers(AccountTokenPojo accountToken) {
+        List<CustomerPojo> customers = new Vector<>();
+
+        return get("/customers", JsonMapper.toJson(customers, true), List.class, accountToken);
+    }
+
+    public EmptyPojo deleteUser(AccountTokenPojo accountToken, UUID id) throws InstantiationException, IllegalAccessException {
+        EmptyPojo customer = new EmptyPojo();
+
+        return delete("/customers/" + id.toString(), JsonMapper.toJson(customer, false),
+                EmptyPojo.class, accountToken);
+    }
+
+    public PlanPojo createPlan(AccountTokenPojo accountToken) {
+        PlanPojo plan = new PlanPojo();
+        plan.name = "Some gorgeous plan";
+        plan.details = "As said, the plan's gorgeous";
+        plan.fee = 100;
+
+        return post("/plans", JsonMapper.toJson(plan, true), PlanPojo.class, accountToken);
+    }
+
     private static <R> R post(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
         // Лабораторная 3: Добавить обработку Responses и Errors. Выводите их в лог.
         // Подумайте почему в filter нет Response чтобы можно было удобно его сохранить.
@@ -103,7 +138,8 @@ public class RestClient {
         return JsonMapper.fromJson(response, responseType);
     }
 
-    private static <R> R delete(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
+    private static <R> R delete(String path, String body, Class<R> responseType, AccountTokenPojo accountToken)
+            throws InstantiationException, IllegalAccessException {
         Invocation.Builder request = client
                 .target(REST_URI)
                 .path(path)
@@ -119,7 +155,7 @@ public class RestClient {
 
         Logger.info("RESPONCE: " + response);
 
-        return JsonMapper.fromJson(response, responseType);
+        return response.isEmpty() ? responseType.newInstance() : JsonMapper.fromJson(response, responseType);
     }
 
     private static <R> R put(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
@@ -144,8 +180,8 @@ public class RestClient {
     private static class RestClientLogFilter implements ClientRequestFilter {
         @Override
         public void filter(ClientRequestContext requestContext) {
-            Logger.debug(requestContext.getEntity().toString());
-            Logger.info(requestContext.getMethod());
+            //Logger.debug(requestContext.getEntity().toString());
+            //Logger.info(requestContext.getMethod());
             MultivaluedMap<String, Object> headers = requestContext.getHeaders();
             headers.forEach((header, values) -> {
                 for (Object value : values) {

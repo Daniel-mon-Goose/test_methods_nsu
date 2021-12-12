@@ -60,7 +60,7 @@ dependencies {
 
     implementation 'javax.activation:activation:1.1.1'
 
-    implementation 'com.github.mifmif:generex:1.0.1'
+    implementation 'com.github.mifmif:generex:1.0.2'
 }
 
 def api_suite = project.hasProperty("api")
