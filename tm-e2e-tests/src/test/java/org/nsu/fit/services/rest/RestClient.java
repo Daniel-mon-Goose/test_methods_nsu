@@ -1,5 +1,6 @@
 package org.nsu.fit.services.rest;
 
+import com.mifmif.common.regex.Generex;
 import org.glassfish.jersey.client.ClientConfig;
 import org.nsu.fit.services.log.Logger;
 import org.nsu.fit.services.rest.data.AccountTokenPojo;
@@ -38,9 +39,12 @@ public class RestClient {
 
         // Лабораторная 3: Добавить обработку генерацию фейковых имен, фамилий и логинов.
         // * Исследовать этот вопрос более детально, возможно прикрутить специальную библиотеку для генерации фейковых данных.
-        contactPojo.firstName = "John";
-        contactPojo.lastName = "Wick";
-        contactPojo.login = "john_wick@example.com";
+        Generex namesGenerator = new Generex("([A-Z][a-z]{2,12})");
+        Generex loginsGenerator = new Generex("([a-zA-Z0-9_]{1,})[@]([a-zA-Z0-9]{1,})[\\.]([a-zA-Z0-9]{1,})");
+
+        contactPojo.firstName = namesGenerator.random();
+        contactPojo.lastName = namesGenerator.random();
+        contactPojo.login = loginsGenerator.random();
         contactPojo.pass = "strongpass";
 
         return post("customers", JsonMapper.toJson(contactPojo, true), CustomerPojo.class, accountToken);
