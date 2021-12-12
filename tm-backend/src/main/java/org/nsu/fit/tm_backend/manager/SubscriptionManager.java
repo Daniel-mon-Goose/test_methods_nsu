@@ -18,7 +18,7 @@ public class SubscriptionManager extends ParentManager {
     /**
      * Метод создает подписку. Ограничения:
      * 1. Подписки с таким планом пользователь не имеет.
-     * 2. Стоймость подписки не превышает текущего баланса кастомера и после покупки вычитается из его баласа.
+     * 2. Стоймость подписки не превышает текущего баланса кастомера и после покупки вычитается из его баланса.
      */
     public SubscriptionPojo createSubscription(SubscriptionPojo subscriptionPojo) {
         return dbService.createSubscription(subscriptionPojo);

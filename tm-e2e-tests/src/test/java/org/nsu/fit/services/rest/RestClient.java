@@ -15,6 +15,7 @@ import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 public class RestClient {
     // Note: change url if you want to use the docker compose.
@@ -54,11 +55,71 @@ public class RestClient {
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
 
+
         if (accountToken != null) {
             request.header("Authorization", "Bearer " + accountToken.token);
         }
 
         String response = request.post(Entity.entity(body, MediaType.APPLICATION_JSON), String.class);
+
+        Logger.info("RESPONCE: " + response);
+
+        return JsonMapper.fromJson(response, responseType);
+    }
+
+    private static <R> R get(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
+        Invocation.Builder request = client
+                .target(REST_URI)
+                .path(path)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+
+
+        if (accountToken != null) {
+            request.header("Authorization", "Bearer " + accountToken.token);
+        }
+
+        String response = request.get(String.class);
+
+        Logger.info("RESPONCE: " + response);
+
+        return JsonMapper.fromJson(response, responseType);
+    }
+
+    private static <R> R delete(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
+        Invocation.Builder request = client
+                .target(REST_URI)
+                .path(path)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+
+
+        if (accountToken != null) {
+            request.header("Authorization", "Bearer " + accountToken.token);
+        }
+
+        String response = request.delete(String.class);
+
+        Logger.info("RESPONCE: " + response);
+
+        return JsonMapper.fromJson(response, responseType);
+    }
+
+    private static <R> R put(String path, String body, Class<R> responseType, AccountTokenPojo accountToken) {
+        Invocation.Builder request = client
+                .target(REST_URI)
+                .path(path)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON);
+
+
+        if (accountToken != null) {
+            request.header("Authorization", "Bearer " + accountToken.token);
+        }
+
+        String response = request.put(Entity.entity(body, MediaType.APPLICATION_JSON), String.class);
+
+        Logger.info("RESPONCE: " + response);
 
         return JsonMapper.fromJson(response, responseType);
     }
@@ -67,6 +128,13 @@ public class RestClient {
         @Override
         public void filter(ClientRequestContext requestContext) {
             Logger.debug(requestContext.getEntity().toString());
+            Logger.info(requestContext.getMethod());
+            MultivaluedMap<String, Object> headers = requestContext.getHeaders();
+            headers.forEach((header, values) -> {
+                for (Object value : values) {
+                    Logger.info(header + ": " + value.toString());
+                }
+            });
 
             // Лабораторная 3: разобраться как работает данный фильтр
             // и добавить логирование METHOD и HEADERS.

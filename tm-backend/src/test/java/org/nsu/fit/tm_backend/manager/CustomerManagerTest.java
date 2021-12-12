@@ -381,7 +381,7 @@ class CustomerManagerTest {
         assertEquals("Baba_Jaga", me.pass);
         assertEquals(0, me.balance);
     }
-
+/*
     @Test
     void testMeUserType() {
         AuthenticatedUserDetails user = new AuthenticatedUserDetails(UUID.randomUUID().toString(), "john_wick@example.com", Collections.singleton(Authority.CUSTOMER_ROLE));
@@ -396,7 +396,7 @@ class CustomerManagerTest {
         when(dbService.getCustomerByLogin("john_wick@example.com")).thenReturn(createCustomerInput);
         assertEquals(ContactPojo.class, customerManager.me(user).getClass());
     }
-
+*/
     @Test
     void testDeleteCustomer() {
         UUID id = UUID.randomUUID();
