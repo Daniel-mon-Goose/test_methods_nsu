@@ -12,7 +12,7 @@ public class UserTopUpBalanceTest extends UserTest {
     @Test(description = "Update balance as user.")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Balance feature.")
-    public void topUpBalanceTest() {
+    public void topUpBalanceAsUserTest() {
         AccountTokenPojo userToken = getUserToken();
         new RestClient().updateUserBalance(userToken);
 

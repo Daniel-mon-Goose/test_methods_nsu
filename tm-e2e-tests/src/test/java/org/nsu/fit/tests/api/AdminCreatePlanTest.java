@@ -10,7 +10,7 @@ public class AdminCreatePlanTest extends AdminTest {
     @Test(description = "Create plan as admin.")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Plans feature.")
-    public void createPlanTest() {
+    public void createPlanAsAdminTest() {
         new RestClient().createPlan(getAdminToken());
     }
 }

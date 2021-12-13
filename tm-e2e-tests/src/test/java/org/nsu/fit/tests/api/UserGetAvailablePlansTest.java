@@ -12,7 +12,7 @@ public class UserGetAvailablePlansTest extends UserTest {
     @Test(description = "Get available plans as user.")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Plans feature.")
-    public void availablePlansTest() {
+    public void getAvailablePlansAsUserTest() {
         AccountTokenPojo userToken = getUserToken();
         new RestClient().getAvailablePlans(userToken);
 

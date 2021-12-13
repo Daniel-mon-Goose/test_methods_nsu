@@ -11,7 +11,7 @@ public class UserGetSubscriptionsTest extends UserTest {
     @Test(description = "Get subscriptions as user")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Subscriptions feature.")
-    public void getUsersAsUserTest() {
+    public void getSubscriptionsAsUserTest() {
         new RestClient().getAvailableSubscriptions(getUserToken());
     }
 }
