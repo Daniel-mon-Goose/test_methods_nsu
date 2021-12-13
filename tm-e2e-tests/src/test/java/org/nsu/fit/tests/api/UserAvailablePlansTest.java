@@ -7,14 +7,14 @@ import org.nsu.fit.services.rest.RestClient;
 import org.nsu.fit.services.rest.data.AccountTokenPojo;
 import org.testng.annotations.Test;
 
-public class UserTopUpBalanceTest extends UserTest {
+public class UserAvailablePlansTest extends UserTest {
 
-    @Test(description = "Update balance as user.")
+    @Test(description = "Get available plans as user.")
     @Severity(SeverityLevel.NORMAL)
-    @Feature("Balance feature.")
-    public void topUpBalanceTest() {
+    @Feature("Plans feature.")
+    public void availablePlansTest() {
         AccountTokenPojo userToken = getUserToken();
-        new RestClient().updateUserBalance(userToken);
+        new RestClient().getAvailablePlans(userToken);
 
     }
 }
