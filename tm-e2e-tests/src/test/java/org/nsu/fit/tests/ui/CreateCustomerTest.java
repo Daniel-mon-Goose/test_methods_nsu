@@ -11,6 +11,7 @@ import org.nsu.fit.services.browser.Browser;
 import org.nsu.fit.services.browser.BrowserService;
 
 public class CreateCustomerTest {
+    /*
     private Browser browser = null;
 
     @BeforeClass
@@ -40,4 +41,6 @@ public class CreateCustomerTest {
             browser.close();
         }
     }
+
+     */
 }
