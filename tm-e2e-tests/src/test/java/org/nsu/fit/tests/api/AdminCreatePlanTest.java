@@ -13,4 +13,5 @@ public class AdminCreatePlanTest extends AdminTest {
     public void createPlanAsAdminTest() {
         new RestClient().createPlan(getAdminToken());
     }
+
 }

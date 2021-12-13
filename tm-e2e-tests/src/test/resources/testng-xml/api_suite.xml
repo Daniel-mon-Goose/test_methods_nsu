@@ -1,20 +1,32 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite verbose="1" name="API Tests" annotations="JDK" parallel="tests">
+<suite verbose="1" name="API Tests" annotations="JDK" parallel="tests" thread-count="4">
     <test name="AuthTest">
         <classes>
-            <class name="org.nsu.fit.tests.api.AdminCreatePlanTest" />
-            <class name="org.nsu.fit.tests.api.AdminCreateUserTest" />
-            <class name="org.nsu.fit.tests.api.AdminDeletePlanTest" />
-            <class name="org.nsu.fit.tests.api.AdminDeleteUserTest" />
-            <class name="org.nsu.fit.tests.api.AdminGetPlansTest" />
-            <class name="org.nsu.fit.tests.api.AdminGetSubscriptionsTest" />
             <class name="org.nsu.fit.tests.api.AuthTest" />
+        </classes>
+    </test>
+    <test name="CustomerTest">
+        <classes>
+            <class name="org.nsu.fit.tests.api.AdminCreateUserTest" />
+            <class name="org.nsu.fit.tests.api.AdminDeleteUserTest" />
             <class name="org.nsu.fit.tests.api.GetUsersTest" />
+            <class name="org.nsu.fit.tests.api.UserTopUpBalanceTest" />
+        </classes>
+    </test>
+    <test name="PlansTest">
+        <classes>
+            <class name="org.nsu.fit.tests.api.AdminCreatePlanTest" />
+            <class name="org.nsu.fit.tests.api.AdminDeletePlanTest" />
+            <class name="org.nsu.fit.tests.api.AdminGetPlansTest" />
+            <class name="org.nsu.fit.tests.api.UserGetAvailablePlansTest" />
+        </classes>
+    </test>
+    <test name="SubscriptionsTest">
+        <classes>
+            <class name="org.nsu.fit.tests.api.AdminGetSubscriptionsTest" />
             <class name="org.nsu.fit.tests.api.UserCreateSubscriptionTest" />
             <class name="org.nsu.fit.tests.api.UserDeleteSubscriptionTest" />
-            <class name="org.nsu.fit.tests.api.UserGetAvailablePlansTest" />
             <class name="org.nsu.fit.tests.api.UserGetSubscriptionsTest" />
-            <class name="org.nsu.fit.tests.api.UserTopUpBalanceTest" />
         </classes>
     </test>
 </suite>

@@ -8,6 +8,7 @@ import org.nsu.fit.services.log.Logger;
 import org.nsu.fit.services.rest.data.*;
 import org.nsu.fit.shared.JsonMapper;
 
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.ClientRequestContext;
@@ -104,7 +105,7 @@ public class RestClient {
         CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, SubscriptionPojo.class);
         return objectMapper.convertValue(list, coll);
     }
-    public List<SubscriptionPojo> getAvailableSubscriptions(AccountTokenPojo accountToken) {
+    public List<SubscriptionPojo> getAvailableSubscriptions(AccountTokenPojo accountToken) throws InternalServerErrorException {
         List<SubscriptionPojo> plans = new Vector<>();
 
         List<LinkedHashMap> list = get("/available_subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
