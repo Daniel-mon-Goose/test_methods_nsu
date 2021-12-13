@@ -11,20 +11,18 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class UserCreateSubscriptionTest extends UserTest {
 
-    private PlanPojo plan;
-
     @Test(description = "Create subscription as user.")
     @Severity(SeverityLevel.NORMAL)
     @Feature("Subscriptions feature.")
-    public void createSubscriptionTest() {
+    public void createSubscriptionAsUserTest() {
         AccountTokenPojo userToken = getUserToken();
         List<PlanPojo> list = new RestClient().getAvailablePlans(userToken);
-        plan = list.get(0);
-        new RestClient().createSubscription(userToken, plan);
+        new RestClient().createSubscription(userToken, list.get(0).id);
     }
 
 }

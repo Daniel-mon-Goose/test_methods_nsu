@@ -6,11 +6,12 @@ import io.qameta.allure.SeverityLevel;
 import org.nsu.fit.services.rest.RestClient;
 import org.testng.annotations.Test;
 
-public class AdminGetSubscriptionsTest extends AdminTest {
-    @Test(description = "Get subscriptions as admin")
+public class UserGetSubscriptionsTest extends UserTest {
+
+    @Test(description = "Get subscriptions as user")
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Subscriptions feature.")
-    public void getSubscriptionsTest() {
-        new RestClient().getSubscriptions(getAdminToken());
+    public void getUsersAsUserTest() {
+        new RestClient().getAvailableSubscriptions(getUserToken());
     }
 }

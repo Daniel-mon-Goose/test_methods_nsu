@@ -91,13 +91,25 @@ public class RestClient {
 
         return get("/subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
     }
+    public List<SubscriptionPojo> getAvailableSubscriptions(AccountTokenPojo accountToken) {
+        List<SubscriptionPojo> plans = new Vector<>();
 
-    public SubscriptionPojo createSubscription(AccountTokenPojo accountToken, PlanPojo plan) {
+        return get("/available_subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+    }
+
+    public SubscriptionPojo createSubscription(AccountTokenPojo accountToken, UUID planID) {
         SubscriptionPojo subscription = new SubscriptionPojo();
         subscription.customerId = accountToken.id;
-        subscription.planId = plan.id;
+        subscription.planId = planID;
 
         return post("/subscriptions", JsonMapper.toJson(subscription, true), SubscriptionPojo.class, accountToken);
+    }
+
+    public EmptyPojo deleteSubscription(AccountTokenPojo accountToken, UUID id) {
+        EmptyPojo subscription = new EmptyPojo();
+
+        return delete("/subscriptions/" + id.toString(), JsonMapper.toJson(subscription, false),
+                EmptyPojo.class, accountToken);
     }
 
     public List<CustomerPojo> getUsers(AccountTokenPojo accountToken) {

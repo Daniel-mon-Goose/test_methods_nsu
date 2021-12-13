@@ -7,7 +7,7 @@ import org.nsu.fit.services.rest.RestClient;
 import org.nsu.fit.services.rest.data.AccountTokenPojo;
 import org.testng.annotations.Test;
 
-public class UserAvailablePlansTest extends UserTest {
+public class UserGetAvailablePlansTest extends UserTest {
 
     @Test(description = "Get available plans as user.")
     @Severity(SeverityLevel.NORMAL)

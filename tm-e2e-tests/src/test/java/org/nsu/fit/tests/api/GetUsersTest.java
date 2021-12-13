@@ -19,7 +19,6 @@ public class GetUsersTest extends AdminTest {
     @Severity(SeverityLevel.CRITICAL)
     @Feature("Customers feature.")
     public void getUsersAsUserTest() {
-
         AccountTokenPojo userToken = new RestClient().authenticate("user@us.er", "defaultpass");
         new RestClient().getUsers(userToken);
     }
