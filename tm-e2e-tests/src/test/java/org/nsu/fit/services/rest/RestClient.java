@@ -1,5 +1,7 @@
 package org.nsu.fit.services.rest;
 
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mifmif.common.regex.Generex;
 import org.glassfish.jersey.client.ClientConfig;
 import org.nsu.fit.services.log.Logger;
@@ -14,9 +16,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.List;
-import java.util.UUID;
-import java.util.Vector;
+import java.util.*;
 
 public class RestClient {
     // Note: change url if you want to use the docker compose.
@@ -61,19 +61,29 @@ public class RestClient {
     public List<PlanPojo> getAvailablePlans(AccountTokenPojo accountToken) {
         List<PlanPojo> plans = new Vector<>();
         
-        return get("/available_plans", JsonMapper.toJson(plans, true), List.class, accountToken);
+        List<LinkedHashMap> list = get("/available_plans", JsonMapper.toJson(plans, true), List.class, accountToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, PlanPojo.class);
+        return objectMapper.convertValue(list, coll);
     }
 
     public List<PlanPojo> getPlans(AccountTokenPojo accountToken) {
         List<PlanPojo> plans = new Vector<>();
 
-        return get("/plans", JsonMapper.toJson(plans, true), List.class, accountToken);
+        List<LinkedHashMap> list = get("/plans", JsonMapper.toJson(plans, true), List.class, accountToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, PlanPojo.class);
+        return objectMapper.convertValue(list, coll);
+
     }
 
     public PlanPojo createPlan(AccountTokenPojo accountToken) {
         PlanPojo plan = new PlanPojo();
-        plan.name = "Some gorgeous plan";
-        plan.details = "As said, the plan's gorgeous";
+        Generex namesGenerator = new Generex("([A-Za-z0-9_])");
+        Generex detailsGenerator = new Generex("([a-zA-Z0-9_])");
+
+        plan.name = namesGenerator.random(2, 128);
+        plan.details = detailsGenerator.random(1, 1024);
         plan.fee = 100;
 
         return post("/plans", JsonMapper.toJson(plan, true), PlanPojo.class, accountToken);
@@ -89,12 +99,18 @@ public class RestClient {
     public List<SubscriptionPojo> getSubscriptions(AccountTokenPojo accountToken) {
         List<SubscriptionPojo> plans = new Vector<>();
 
-        return get("/subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+        List<LinkedHashMap> list = get("/subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, SubscriptionPojo.class);
+        return objectMapper.convertValue(list, coll);
     }
     public List<SubscriptionPojo> getAvailableSubscriptions(AccountTokenPojo accountToken) {
         List<SubscriptionPojo> plans = new Vector<>();
 
-        return get("/available_subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+        List<LinkedHashMap> list = get("/available_subscriptions", JsonMapper.toJson(plans, true), List.class, accountToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, SubscriptionPojo.class);
+        return objectMapper.convertValue(list, coll);
     }
 
     public SubscriptionPojo createSubscription(AccountTokenPojo accountToken, UUID planID) {
@@ -115,7 +131,10 @@ public class RestClient {
     public List<CustomerPojo> getUsers(AccountTokenPojo accountToken) {
         List<CustomerPojo> customers = new Vector<>();
 
-        return get("/customers", JsonMapper.toJson(customers, true), List.class, accountToken);
+        List<LinkedHashMap> list = get("/customers", JsonMapper.toJson(customers, true), List.class, accountToken);
+        ObjectMapper objectMapper = new ObjectMapper();
+        CollectionType coll = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, CustomerPojo.class);
+        return objectMapper.convertValue(list, coll);
     }
 
     public EmptyPojo deleteUser(AccountTokenPojo accountToken, UUID id) {

@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class UserDeleteSubscriptionsTest extends UserTest {
+public class UserDeleteSubscriptionTest extends UserTest {
 
     @Test(description = "Delete subscription as user")
     @Severity(SeverityLevel.CRITICAL)
