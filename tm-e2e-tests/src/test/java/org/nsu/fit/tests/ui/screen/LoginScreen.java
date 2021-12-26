@@ -25,8 +25,19 @@ public class LoginScreen extends Screen {
         return new AdminScreen(browser);
     }
 
+    public Screen loginGeneric(String userName, String password) {
+        if (userName.equals("admin") || password.equals("setup")) {
+            return loginAsAdmin();
+        }
+        return loginAsCustomer(userName, password);
+    }
+
     public CustomerScreen loginAsCustomer(String userName, String password) {
-        // TODO: Please implement this...
+
+        browser.typeText(By.id("email"), userName);
+        browser.typeText(By.id("password"), password);
+
+        browser.click(By.xpath("//button[@type = 'submit']"));
         return new CustomerScreen(browser);
     }
 }

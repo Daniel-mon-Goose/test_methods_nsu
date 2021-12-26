@@ -2,6 +2,7 @@ package org.nsu.fit.tests.ui.screen;
 
 import org.nsu.fit.services.browser.Browser;
 import org.nsu.fit.shared.Screen;
+import org.openqa.selenium.By;
 
 public class AdminScreen extends Screen {
     public AdminScreen(Browser browser) {
@@ -9,7 +10,9 @@ public class AdminScreen extends Screen {
     }
 
     public CreateCustomerScreen createCustomer() {
-        // TODO: Please implement this...
+        browser.click(By.xpath("/MaterialTable/actions[@tooltip = 'Add Customer']"));
         return new CreateCustomerScreen(browser);
     }
+
+
 }
