@@ -1,8 +1,33 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite verbose="1" name="UI Tests" annotations="JDK" parallel="tests">
-    <test name="AcceptanceTest">
+    <test name="CustomerTest">
         <classes>
-            <class name="org.nsu.fit.tests.ui.CreateCustomerTest" />
+            <class name="org.nsu.fit.tests.ui.CreateCustomerTest"/>
+            <class name="org.nsu.fit.tests.ui.CreateCustomerFailedTest"/>
+            <class name="org.nsu.fit.tests.ui.DeleteCustomerTest"/>
+            <class name="org.nsu.fit.tests.ui.DeleteCustomerCancelTest"/>
+        </classes>
+    </test>
+    <test name="BalanceTest">
+        <classes>
+            <class name="org.nsu.fit.tests.ui.TopUpBalanceTest"/>
+        </classes>
+    </test>
+    <test name="PlanTest">
+        <classes>
+            <class name="org.nsu.fit.tests.ui.CreatePlanTest"/>
+            <class name="org.nsu.fit.tests.ui.DeletePlanTest"/>
+        </classes>
+    </test>
+    <test name="SubscriptionTest">
+        <classes>
+            <class name="org.nsu.fit.tests.ui.CreateSubscriptionTest"/>
+            <class name="org.nsu.fit.tests.ui.DeleteSubscriptionTest"/>
+        </classes>
+    </test>
+    <test name="AuthTest">
+        <classes>
+            <class name="org.nsu.fit.tests.ui.HiTest"/>
         </classes>
     </test>
 </suite>

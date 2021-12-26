@@ -5,33 +5,37 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.nsu.fit.shared.RandomClientDataGenerator;
 import org.nsu.fit.tests.ui.data.Customer;
+import org.nsu.fit.tests.ui.screen.AdminScreen;
 import org.nsu.fit.tests.ui.screen.LoginScreen;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class CreateCustomerTest extends BaseTest {
-    @Test(description = "Create customer via UI.")
+public class DeleteCustomerCancelTest extends BaseTest {
+    @Test(description = "Delete customer cancel via UI.")
     @Severity(SeverityLevel.BLOCKER)
     @Feature("Customer feature.")
-    public void createCustomerTest() {
+    public void deleteCustomerCancelTest() {
         String email = RandomClientDataGenerator.createEmail();
         String pass = RandomClientDataGenerator.createPassword(6, 12);
         String firstName = RandomClientDataGenerator.createRandomName(2, 12);
         String lastName = RandomClientDataGenerator.createRandomName(2, 12);
 
-        Customer customer = new LoginScreen(browser)
+        AdminScreen screen = new LoginScreen(browser)
                 .loginAsAdmin()
                 .createCustomer()
                 .fillEmail(email)
                 .fillPassword(pass)
                 .fillFirstName(firstName)
                 .fillLastName(lastName)
-                .clickSubmit()
-                .findCustomer(email);
+                .clickSubmit();
+
+        Customer customer = screen.findCustomer(email);
 
         Assert.assertNotNull(customer);
-        Assert.assertEquals(customer.login, email);
-        Assert.assertEquals(customer.firstName, firstName);
-        Assert.assertEquals(customer.lastName, lastName);
+        Assert.assertNotNull(screen
+                .deleteFirstCustomer()
+                .deleteFirstCustomerCancel()
+                .reload()
+                .findCustomer(email));
     }
 }

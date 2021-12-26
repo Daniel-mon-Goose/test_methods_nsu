@@ -20,7 +20,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import {meActions, customerActions} from '../_actions';
+import {customerActions, meActions} from '../_actions';
 
 class CustomerPage extends React.Component {
     componentDidMount() {
@@ -95,7 +95,7 @@ class CustomerPage extends React.Component {
 
                 <MaterialTable
                     columns={[
-                        { title: "Name", field: "login" },
+                        { title: "Name", field: "name" },
                         { title: "Details", field: "details" },
                         { title: "Fee", field: "fee", type: "numeric"}
                     ]}
