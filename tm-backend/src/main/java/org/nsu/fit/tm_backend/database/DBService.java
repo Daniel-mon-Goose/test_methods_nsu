@@ -260,9 +260,6 @@ public class DBService implements IDBService{
                                 subscriptionPojo.id,
                                 subscriptionPojo.customerId,
                                 subscriptionPojo.planId));
-                CustomerPojo customer = getCustomer(subscriptionPojo.customerId);
-                customer.balance -= subscriptionPojo.planFee;
-                editCustomer(customer);
                 return subscriptionPojo;
             } catch (SQLException ex) {
                 logger.error(ex.getMessage(), ex);

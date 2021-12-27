@@ -1,5 +1,6 @@
 package org.nsu.fit.tm_backend.manager;
 
+import org.nsu.fit.tm_backend.database.data.CustomerPojo;
 import org.slf4j.Logger;
 import org.nsu.fit.tm_backend.database.IDBService;
 import org.nsu.fit.tm_backend.database.data.PlanPojo;
@@ -21,6 +22,9 @@ public class SubscriptionManager extends ParentManager {
      * 2. Стоймость подписки не превышает текущего баланса кастомера и после покупки вычитается из его баланса.
      */
     public SubscriptionPojo createSubscription(SubscriptionPojo subscriptionPojo) {
+        /*CustomerPojo customer = dbService.getCustomer(subscriptionPojo.customerId);
+        customer.balance -= subscriptionPojo.planFee;
+        dbService.editCustomer(customer);*/
         return dbService.createSubscription(subscriptionPojo);
     }
 

@@ -95,9 +95,9 @@ class CustomerPage extends React.Component {
 
                 <MaterialTable
                     columns={[
-                        { title: "Name", field: "ap_name" },
-                        { title: "Details", field: "ap_details" },
-                        { title: "Fee", field: "ap_fee", type: "numeric"}
+                        { title: "Name", field: "p_name" },
+                        { title: "Details", field: "details" },
+                        { title: "Fee", field: "fee", type: "numeric"}
                     ]}
                     data={availablePlans}
                     title="Plans"

@@ -10,7 +10,7 @@ public class PlanPojo {
     @JsonProperty("id")
     public UUID id;
 
-    @JsonProperty("name")
+    @JsonProperty("p_name")
     public String name;
 
     @JsonProperty("details")

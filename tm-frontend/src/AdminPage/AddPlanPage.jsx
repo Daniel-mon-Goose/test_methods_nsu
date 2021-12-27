@@ -47,7 +47,7 @@ class AddPlanPage extends React.Component {
 
                 <FormGroup>
                     <FormLabel>Name</FormLabel>
-                    <FormControl type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+                    <FormControl type="text" name="p_name" value={this.state.p_name} onChange={this.handleChange} />
                 </FormGroup>
 
                 <FormGroup>

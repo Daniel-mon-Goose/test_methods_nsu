@@ -94,7 +94,7 @@ function createPlan(name, details, fee) {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "name": name,
+            "p_name": name,
             "details": details,
             "fee": fee
         })
