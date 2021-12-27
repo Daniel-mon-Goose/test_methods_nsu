@@ -115,7 +115,7 @@ class AdminPage extends React.Component {
 
                 <MaterialTable
                     columns={[
-                        { title: "Login", field: "p_name" },
+                        { title: "Plan Name", field: "p_name" },
                         { title: "Details", field: "details" },
                         { title: "Fee", field: "fee", type: "numeric" }
                     ]}

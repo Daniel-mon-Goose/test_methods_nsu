@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CreatePlanScreen extends Screen {
-    @FindBy(xpath = "//input[@name='p_name']")
+    @FindBy(xpath = "//input[@name='name']")
     private WebElement name;
 
     @FindBy(xpath = "//input[@name='details']")
